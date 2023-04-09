@@ -1,0 +1,108 @@
+/** navbar **/
+.small-hamburger, .person-icon{
+    font-size: 1.5rem;
+}
+
+.icons {
+    font-size: 1.3rem;
+}
+
+.nav-item:hover {
+    color: #ff6a00;
+    cursor: pointer;
+}
+
+.sign {
+    position: relative;
+}
+
+.wrapper {
+    position: absolute;
+    width: 300px;
+    box-shadow: 0px 0 15px rgb(0, 0, 0, 0.5);
+    border-radius: 5px;
+    left: -205px;
+    top: 42px;
+    display: none;
+    visibility: hidden;
+}
+
+.btn-container a {
+    text-decoration: none;
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+}
+
+.lbtn {
+    display: block;
+    background-color: #ff6a00;
+    width: 80%;
+    text-align: center;
+    border-radius: 25px;
+    color: #fff;
+}
+
+.rbtn {
+    display: block;
+    background-color: #fff;
+    border-style: solid;
+    border-color: #ff6a00;
+    color: #ff6a00;
+    width: 80%;
+    text-align: center;
+    border-radius: 25px;
+    border-width: 1px;
+    margin-top: 15px;
+}
+
+.rbtn a {
+    color: #ff6a00;
+}
+
+.line {
+    display: inline-block;
+    width: 48px;
+    height: 1px;
+    background: #D8D8D8;
+    margin: 4px 8px;
+}
+
+.social-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+}
+
+.facebook {
+    background-image: url('../images/facebook-icon.svg');
+}
+.google {
+    background-image: url('../images/google-icon.svg');
+}
+
+.linkedin {
+    background-image: url('../images/linkdin-icon.svg');
+}
+
+.twitter {
+    background-image: url('../images/twitter-icon.svg');
+}
+
+.icon-container {
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    border-radius: 200px;
+}
+
+.person:hover ~ .wrapper {
+    display: block;
+    visibility: visible;
+}
+
+/** **/
