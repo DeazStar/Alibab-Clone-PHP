@@ -25,6 +25,8 @@
     top: 42px;
     display: none;
     visibility: hidden;
+    z-index: 999;
+    background-color: #fff;
 }
 
 .btn-container a {
@@ -209,6 +211,7 @@
     background-color: #fff;
     width: 80%;
     margin: 0 auto;
+    border-radius: 15px;
 }
 
 .main-icon {
@@ -225,6 +228,8 @@
     width: 100%;
     font-size: 0.9rem;
 }
+
+
 .main-header, .main-right-header {
     font-weight: bold;
 }
