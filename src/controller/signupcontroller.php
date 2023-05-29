@@ -25,6 +25,11 @@
             header('Location: ../../public/signup.php');
             exit;
         }
+        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['error'] =  'Invalid email address';
+            header('Location: ../../public/signup.php');
+            exit;
+        }
         if ($password !== $confirmPassword) {
             $_SESSION['error'] = 'Passwords do not match.';
             header('Location:../../public/signup.php');
