@@ -1,0 +1,207 @@
+body {
+    background-color: #f5f7fa;
+}
+
+/** navbar **/
+.alibaba-text {
+    font-size: 1.2rem;
+    border-left-style: solid;
+    border-width: 1px;
+    border-color: #5a5959;
+}
+
+.upgrade-to-gold button {
+    background-color: transparent;
+    color: #1047F5;
+    border-color: #1047F5;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+}
+
+.upgrade-to-gold button:hover {
+    background-color: #1047F5;
+    color: #fff;
+}
+
+.profile i {
+    font-size: 1.5rem;
+}
+
+/***/
+
+/** main **/
+
+.post-product-header {
+    font-size: 1.3rem;
+}
+
+.progress-box {
+    border-style: solid;
+    background-color: #1047F5;
+    padding: 7px 60px;
+    border-style: none;
+    color: #fff;
+    width: 30%;
+    text-align: center;
+}
+
+.select-language select{
+    background-color: transparent;
+    border-style: solid;
+    padding: 5px 2px;
+}
+
+.catagory-selection-container {
+    background-color: #fff;
+}
+
+.select-text {
+    font-weight: bold !important;
+}
+
+.issues, .quick {
+    color: #1047F5;
+}
+
+.lang-sel {
+    background-color: transparent;
+    border-style: solid;
+    padding: 3px 5px;
+    border-radius: 7px;
+}
+
+.tab-selected {
+    color: #1047F5 !important;
+    border-bottom-style: solid;
+    border-color: #1047F5;
+    padding-bottom: 8px;
+}
+
+.catagory-search-bar {
+    width: 293px;
+}
+
+.search-bar-container {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    top: 1px;
+    left: 272px;
+}
+
+.catagory-list-container {
+    background-color: #dae2ed;
+    height: 397px;
+}
+
+.catagory-list {
+    width: 384px;
+    height: 380px;
+    background-color: #fff;
+    overflow-y: scroll;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #c7c7c7;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+.list-item {
+    cursor: pointer;
+}
+
+.basic-info, .trade-info, .product-info {
+    background-color: #fff;
+}
+
+.product-name {
+    width: 80% !important;
+}
+
+.basic-info-text, .trade-info-text {
+    font-size: 1.3rem;
+}
+
+.star {
+    color: red;
+}
+
+.unit-select {
+    background-color: #fff;
+    border-style: solid;
+    padding: 5px;
+}
+
+.quantity-input, .price-input {
+    width: 125px;
+}
+
+.quantity-controller {
+    gap: 15rem !important;
+}
+
+.quantity-container {
+    padding-top: 3.5rem;
+}
+
+.quantity-text {
+    padding-right: 2rem;
+}
+
+.quantity-label, .price-label {
+    padding-bottom: 2rem;
+}
+
+.quantity-input, .price-input {
+    margin-left: 5px;
+}
+
+.quantity-controller-container {
+    border-style: solid;
+    border-radius: 20px;
+    border-color: #ccc6c6;
+    padding: 3rem;
+}
+
+.fake-upload-btn {
+    background-color: transparent;
+    border-style: solid;
+    padding: 5px 20px;
+    border-radius: 30px;
+}
+
+.delete-all-btn, .delete-img {
+    cursor: pointer;
+}
+
+.upload-img {
+    border-style: solid;
+    width: 150px;
+    height: 150px;
+    border-width: 1px;
+    border-color: #818080;
+}
+
+.fake-submit-btn-container {
+    padding-top: 5rem;
+}
+.fake-submit-btn {
+    padding: 10px 42px !important;
+    border-radius: 30px;
+}
+
+.post {
+    display: none;
+}
+
+.list-item:hover {
+    background-color: #1047F5;
+    color: #fff;
+}
