@@ -1,4 +1,4 @@
-DROP if exists database alibaba_db;
+DROP DATABASE if exists  alibaba_db;
 create database alibaba_db;
 grant all on alibaba_db.* TO "admin"@"localhost" identified by "admin" ;
 use alibaba_db;
@@ -13,4 +13,20 @@ create TABLE user(
     company_name varchar(200) NOT NULL,
     phoneNumber VARCHAR(50) NOT NULL,
     trade_role ENUM('Buyer', 'Seller' , 'Both')
+);
+
+CREATE TABLE IF NOT EXISTS Orders(
+    user_id INT NOT NULL,
+    product_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    category VARCHAR(100),
+    product_name VARCHAR(100),
+    quantity INT,
+    price DOUBLE,
+    product_img_url_1 VARCHAR(100),
+    product_img_url_2 VARCHAR(100),
+    product_img_url_3 VARCHAR(100),
+    product_img_url_4 VARCHAR(100),
+    product_img_url_5 VARCHAR(100),
+    product_img_url_6 VARCHAR(100),
+
 );

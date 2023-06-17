@@ -7,7 +7,8 @@ class Product {
     private string $productName;
     private int $quantity;
     private float $price;
-
+    private array $image_urls;
+    
     public function __construct() {
 
     }
@@ -52,6 +53,14 @@ class Product {
         return $this->price;
     }
 
+    public function setImageUrls(array $image_urls) {
+        $this->image_urls = $image_urls;
+    }
+
+    public function getImageUrls():array {
+        return $this->image_urls;
+    }
+
     public function save($data, $userId, $files):void {
         $sql = "INSERT INTO product(user_id, category, product_name, quantity, price, 
         product_img_url_1, product_img_url_2, product_img_url_3, product_img_url_4, product_img_url_5, 
@@ -85,6 +94,70 @@ class Product {
 
         $db->write($sql, $productInfo);
 
+    }
+
+    public function delete($product_id):void {
+        $sql = "SELECT product_img_url_1, product_img_url_2, product_img_url_3, 
+                product_img_url_4, product_img_url_5, product_img_url_6 
+                FROM product WHERE product_id = :productId";
+        
+        $params = [':productId' => $product_id];
+    
+        $db = new Database();
+        $rows = $db->read($sql, $params);
+    
+        if (empty($rows)) {
+            throw new Exception('Product not found');
+        }
+    
+        $imageUrls = [];
+    
+        for ($i = 1; $i <= 6; $i++) {
+            $key = 'product_img_url_'.$i;
+            if (!empty($rows[0][$key])) {
+                array_push($imageUrls, $rows[0][$key]);
+            }
+        }
+    
+        $sql = "DELETE FROM product WHERE product_id = :productId";
+    
+        $db->write($sql, $params);
+    
+        foreach ($imageUrls as $image_url) {
+            if (file_exists($image_url)) {
+                unlink($image_url);
+            }
+        }
+    }
+
+    public static function getAllProducts():array {
+        $sql = "SELECT * FROM product";
+        $db = new Database();
+
+        $rows = $db->read($sql);
+
+        $products = [];
+
+        foreach ($rows as $row) {
+            $product = new Product();
+            $product->setProductId($row['product_id']);
+            $product->setCategory($row['category']);
+            $product->setProductName($row['product_name']);
+            $product->setQuantity($row['quantity']);
+            $product->setPrice($row['price']);
+            $imageUrls = [];
+            for ($i = 1; $i <= 6; $i++) {
+                $key = 'product_img_url_'.$i;
+                if (!empty($row[$key])) {
+                    array_push($imageUrls, $row[$key]);
+                }
+            }
+            $product->setImageUrls($imageUrls);
+
+            array_push($products, $product);
+        }
+
+        return $products;
     }
 
     private function updateProductImage(array $file):bool|string {
