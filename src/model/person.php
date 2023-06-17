@@ -44,7 +44,7 @@
         
 
         public function setPhoneNumber($phoneNumber) {
-            $this->getPhoneNumber = $phoneNumber;
+            $this->phoneNumber = $phoneNumber;
         }
 
         public function setCompanyName($companyName){

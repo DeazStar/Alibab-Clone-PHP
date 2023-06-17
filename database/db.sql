@@ -3,7 +3,7 @@ create database alibaba_db;
 grant all on alibaba_db.* TO "admin"@"localhost" identified by "admin" ;
 use alibaba_db;
 
-create TABLE USER(
+create TABLE user(
     id INT PRIMARY KEY AUTO_INCREMENT,
     firstname VARCHAR(50) NOT NULL,
     lastname VARCHAR(50) NOT NULL,

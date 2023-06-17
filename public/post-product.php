@@ -166,7 +166,7 @@
 
             <div class="d-flex gap-2 align-items-center">
                 <div class="product-name-label"><span class="star">*</span>Product name</div>
-                <input type="text" class="form-control product-name">
+                <input type="text" class="form-control product-name product-name-fk">
             </div>
         </div>
 
@@ -243,28 +243,38 @@
             <div class="row uplaod-image-container pt-3">
                 <div class="col-2 upload-img-controller">
                     <div class="upload-img">
-                        <img src="" alt="">
+                        <img src="" alt="" class="prev-img img-fluid">
                     </div>
                     <div class="delete-img text-primary text-center pt-2">Delete</div>
                 </div>
                 <div class="col-2 upload-img-controller">
-                    <div class="upload-img"></div>
+                    <div class="upload-img">
+                        <img src="" alt="" class="prev-img img-fluid">
+                    </div>
                     <div class="delete-img text-primary text-center pt-2">Delete</div>
                 </div>
                 <div class="col-2 upload-img-controller">
-                    <div class="upload-img"></div>
+                    <div class="upload-img">
+                        <img src="" alt="" class="prev-img img-fluid">
+                    </div>
                     <div class="delete-img text-primary text-center pt-2">Delete</div>
                 </div>
                 <div class="col-2 upload-img-controller">
-                    <div class="upload-img"></div>
+                    <div class="upload-img">
+                        <img src="" alt="" class="prev-img img-fluid">
+                    </div>
                     <div class="delete-img text-primary text-center pt-2">Delete</div>
                 </div>
                 <div class="col-2 upload-img-controller">
-                    <div class="upload-img"></div>
+                    <div class="upload-img">
+                        <img src="" alt="" class="prev-img img-fluid">
+                    </div>
                     <div class="delete-img text-primary text-center pt-2">Delete</div>
                 </div>
                 <div class="col-2 upload-img-controller">
-                    <div class="upload-img"></div>
+                    <div class="upload-img">
+                        <img src="" alt="" class="prev-img img-fluid">
+                    </div>
                     <div class="delete-img text-primary text-center pt-2">Delete</div>
                 </div>
             </div>
@@ -279,15 +289,15 @@
 
     <form class="post" action="postHandler.php" method="POST" enctype="multipart/form-data">
         <input type="text" name="category" id="category">
-        <input type="text" name="product-name">
-        <input type="text" name="quantity">
-        <input type="text" name="price">
-        <input type="file" name="image1" id="fileInput1">
-        <input type="file" name="image2" id="fileInput2">
-        <input type="file" name="image3" id="fileInput3">
-        <input type="file" name="image4" id="fileInput4">
-        <input type="file" name="image5" id="fileInput5">
-        <input type="file" name="image6" id="fileInput6">
+        <input type="text" name="product-name" id="product-name">
+        <input type="text" name="quantity" id="quantity">
+        <input type="text" name="price" id="price">
+        <input type="file" name="image1" id="fileInput1" class="imgUpload">
+        <input type="file" name="image2" id="fileInput2" class="imgUpload">
+        <input type="file" name="image3" id="fileInput3" class="imgUpload">
+        <input type="file" name="image4" id="fileInput4" class="imgUpload">
+        <input type="file" name="image5" id="fileInput5" class="imgUpload">
+        <input type="file" name="image6" id="fileInput6" class="imgUpload">
         <input type="submit">
     </form>
 
@@ -295,7 +305,9 @@
 
 
 
-
+    <!--customer script -->
+        <script src="assets/script/post-product.js"></script>
+    <!---->
     <!--bootstrap-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
