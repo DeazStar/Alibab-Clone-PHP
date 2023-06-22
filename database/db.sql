@@ -1,6 +1,6 @@
 DROP DATABASE if exists  alibaba_db;
 create database alibaba_db;
-grant all on alibaba_db.* TO "admin"@"localhost" identified by "admin" ;
+grant all on alibaba_db.* TO "admin"@"localhost";
 use alibaba_db;
 
 create TABLE user(
@@ -38,4 +38,16 @@ CREATE TABLE IF NOT EXISTS cart(
     quantity INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (product_id) REFERENCES product(product_id)
+);
+
+CREATE TABLE IF NOT EXISTS `order`(
+    order_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+    user_id INT NOT NULL ,
+    product_id INT NOT NULL,
+    address1 VARCHAR(500) NOT NULL,
+    address2 VARCHAR(500) NOT NULL,
+    province VARCHAR(100) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    zip_code INT NOT NULL,
+    phoneNumber VARCHAR(25) NOT NULL
 );

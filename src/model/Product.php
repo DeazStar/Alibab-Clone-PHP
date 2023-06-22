@@ -1,5 +1,5 @@
 <?php
-require_once '../core/Database.php';
+require_once dirname(__DIR__) . '/core/Database.php';
 session_start();
 
 class Product {
@@ -65,8 +65,8 @@ class Product {
     public function save($data, $userId, $files):void {
         $sql = "INSERT INTO product(user_id, category, product_name, quantity, price, 
         product_img_url_1, product_img_url_2, product_img_url_3, product_img_url_4, product_img_url_5, 
-        product_img_url_6) VALUES(:userId, :category, :productName, :quantity, :price, :image1, :image2, 
-        :image3, :image4, :image5, :image6)";
+        product_img_url_6) VALUES(?, ?, ?, ?, ?, ?, ?, 
+        ?, ?, ?, ?)";
 
         $productInfo = [];
         $productImage = [];
@@ -83,7 +83,7 @@ class Product {
 
         array_push($productInfo, $userId);
         array_push($productInfo, $data['category']);
-        array_push($productInfo, $data['product-name']);
+        array_push($productInfo, $data['product_name']);
         array_push($productInfo, $data['quantity']);
         array_push($productInfo, $data['price']);
 
@@ -91,9 +91,11 @@ class Product {
             array_push($productInfo, $productImage[$i]);
         }
 
+
         $db = new Database();
 
-        $db->write($sql, $productInfo);
+        $status = $db->write($sql, $productInfo);
+        var_dump($status);
 
     }
 
@@ -167,7 +169,7 @@ class Product {
         $sql = "select quantity from product where product_id = :product_id;";
         $params = [":product_id" => $product_id];
         $row = $db->read($sql ,$params);
-       
+
 
         
         $sql = "Insert into cart (user_id , product_id , quantity)
@@ -179,7 +181,7 @@ class Product {
                 ];
 
         $db->write($sql ,$params);
-        $newQuantity = $row[0]->quantity - $quantity;
+        $newQuantity = $row[0]['quantity'] - $quantity;
         
         $sql = "UPDATE product set quantity = :quantity
                     where product_id = :product_id;";
@@ -191,17 +193,18 @@ class Product {
     }
 
     private function updateProductImage(array $file):bool|string {
-        $size = 20000;
+        $size = 5242880;
         $allowedFileTypes = ['jpg', 'jpeg', 'png'];
         
         $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $path = dirname(dirname(__DIR__)).'/public/uploads/productImage/';
+        $path = dirname(dirname(__DIR__)).'/public/uploads/product-image/';
 
         if ($file['error'] === 0) {
-            if ($size <= $file['size']) {
+            if ($size >= $file['size']) {
                 if (in_array($fileExtension, $allowedFileTypes)) {
-                    $baseName = pathinfo($file['name'], PATHINFO_FILENAME);
-                    $newName = $baseName . '_' . uniqid("", true) . $fileExtension;
+                    $arrName = explode('.', $file['name']);
+                    $baseName = $arrName[0];
+                    $newName = $baseName . '_' . uniqid("", true) . '.' . $fileExtension;
 
                     $status = move_uploaded_file($file['tmp_name'], $path.$newName);
 
@@ -212,6 +215,31 @@ class Product {
             }
         }
         return false;
+    }
+
+    public static function getProductById(int $productId):Product {
+        $sql = "SELECT * FROM product WHERE product_id = ?";
+        $id = array($productId);
+        $db = new Database();
+        $data = $db->read($sql, $id);
+
+        $product = new Product();
+        $product->setProductId($data[0]['product_id']);
+        $product->setCategory($data[0]['category']);
+        $product->setProductName($data[0]['product_name']);
+        $product->setQuantity($data[0]['quantity']);
+        $product->setPrice($data[0]['price']);
+
+        $imageUrls = [];
+        for ($i = 1; $i <= 6; $i++) {
+            $key = 'product_img_url_'.$i;
+            if (!empty($data[0][$key])) {
+                array_push($imageUrls, $data[0][$key]);
+            }
+        }
+        $product->setImageUrls($imageUrls);
+
+        return $product;
     }
 
 }

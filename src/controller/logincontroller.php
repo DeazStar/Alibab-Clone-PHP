@@ -13,10 +13,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     if (is_array($user) && count($user) > 0) {
         
         
-        $_SESSION['id'] = $user['id'];
+        $_SESSION['id'] = $user[0]->id;
 
         // Redirect to dashboard
-        header('Location: ../../public/index.html');
+        header('Location: ../../public/index.php');
         exit;
     } else {
         // Invalid credentials
