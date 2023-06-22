@@ -14,6 +14,8 @@
 
     <!--custom css-->
     <link rel="stylesheet" href="../public/assets/css/post-product.css">
+    <link rel="stylesheet" href="../public/assets/css/footer.css">
+
     <!---->
 
     <title>Post Product</title>
@@ -24,7 +26,7 @@
     <nav class="navbar">
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <div class="d-flex">
-                <a href="#" class="nav-brand">
+                <a href="index.php" class="nav-brand">
                     <img src="assets/images/alibab-logo.png" width="200" alt="">
                 </a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-row align-items-center">
@@ -301,6 +303,40 @@
         <input type="submit" name="submit" id="submit-btn">
     </form>
 
+    <div id="line"></div>
+    <footer>
+        <div id="container">
+            <div id="row-1">
+                <a href="#">AliExpress| </a>
+                <a href="#">1688.com |</a>
+                <a href="#">Tamil Taobao World |</a>
+                <a href="#">Alipay |</a>
+                <a href="#">Lazada</a>
+            </div>
+            <div id="row-1">
+                <p>Browse Alphabetically:</p>
+                <a href="#">Onetouch |</a>
+                <a href="#"> Showroom |</a>
+                <a href="#">Country Search |</a>
+                <a href="#">Suppliers |</a>
+                <a href="#"> Affiliate</a>
+            </div>
+            <div id="row-1">
+                <p>Product Listing Policy -</p>
+                <a href="#">Intellectual Property Protection - </a>
+                <a href="#"> Privacy Policy - </a>
+                <a href="#">Terms of Use - </a>
+                <a href="#">User Information Legal Enquiry Guide</a>
+            </div>
+            <div id="row-1">
+                <img src="https://s.alicdn.com/@img/tfs/TB1VtZtebH1gK0jSZFwXXc7aXXa-65-70.gif" alt="logo" id="logo">
+                <span>© 1999-2021 Alibaba.com. </span>
+                <span> All rights reserved.</span>
+                <img src="https://s.alicdn.com/@img/tfs/TB1QhYprKT2gK0jSZFvXXXnFXXa-20-20.png" alt="logo" id="logo">
+                <span>浙公网安备 33010002000092号 浙B2-20120091-4</span>
+            </div>
+        </div>
+    </footer>
 
 
 
@@ -314,5 +350,4 @@
         crossorigin="anonymous"></script>
     <!---->
 </body>
-
 </html>
