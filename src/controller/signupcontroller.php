@@ -43,7 +43,7 @@
             exit;
         }        
         $user = new User($firstName, $lastName , $email, md5($password), $country,
-                          $phoneNumber , $companyName , $tradeRole);
+                        $phoneNumber , $companyName , $tradeRole);
 
         $flag = $admin->save($user);
         if(!$flag){
