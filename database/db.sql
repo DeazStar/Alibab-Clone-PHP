@@ -15,7 +15,7 @@ create TABLE user(
     trade_role ENUM('Buyer', 'Seller' , 'Both')
 );
 
-CREATE TABLE IF NOT EXISTS Orders(
+CREATE TABLE IF NOT EXISTS product(
     user_id INT NOT NULL,
     product_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     category VARCHAR(100),
@@ -27,6 +27,15 @@ CREATE TABLE IF NOT EXISTS Orders(
     product_img_url_3 VARCHAR(100),
     product_img_url_4 VARCHAR(100),
     product_img_url_5 VARCHAR(100),
-    product_img_url_6 VARCHAR(100),
+    product_img_url_6 VARCHAR(100)
 
+);
+
+CREATE TABLE IF NOT EXISTS cart(
+    cart_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (product_id) REFERENCES product(product_id)
 );

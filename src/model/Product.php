@@ -1,5 +1,6 @@
 <?php
 require_once '../core/Database.php';
+session_start();
 
 class Product {
     private int $productId;
@@ -158,6 +159,35 @@ class Product {
         }
 
         return $products;
+    }
+
+
+    public static function addToCart(int $product_id , int $quantity):void{
+        $db = new Database();
+        $sql = "select quantity from product where product_id = :product_id;";
+        $params = [":product_id" => $product_id];
+        $row = $db->read($sql ,$params);
+       
+
+        
+        $sql = "Insert into cart (user_id , product_id , quantity)
+        values ( :user_id , :product_id , :quantity);";
+        
+        $params = [ ":user_id" => $_SESSION['id'], 
+                    ":product_id" => $product_id,
+                    ":quantity" => $quantity               
+                ];
+
+        $db->write($sql ,$params);
+        $newQuantity = $row[0]->quantity - $quantity;
+        
+        $sql = "UPDATE product set quantity = :quantity
+                    where product_id = :product_id;";
+        $params = [ ':product_id' => $product_id ,
+                    ':quantity' => $newQuantity    
+                    ];
+        $db->write($sql , $params);
+
     }
 
     private function updateProductImage(array $file):bool|string {
