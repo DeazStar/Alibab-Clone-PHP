@@ -287,7 +287,7 @@
     </main>
 
 
-    <form class="post" action="postHandler.php" method="POST" enctype="multipart/form-data">
+    <form class="post" action="../src/controller/postHandler.php" method="POST" enctype="multipart/form-data">
         <input type="text" name="category" id="category">
         <input type="text" name="product-name" id="product-name">
         <input type="text" name="quantity" id="quantity">
@@ -298,7 +298,7 @@
         <input type="file" name="image4" id="fileInput4" class="imgUpload">
         <input type="file" name="image5" id="fileInput5" class="imgUpload">
         <input type="file" name="image6" id="fileInput6" class="imgUpload">
-        <input type="submit">
+        <input type="submit" name="submit" id="submit-btn">
     </form>
 
 
