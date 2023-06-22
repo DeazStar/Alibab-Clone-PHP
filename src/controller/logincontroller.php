@@ -1,25 +1,22 @@
 <?php
-require_once "../core/pdo.php";
+require_once "../core/Database.php";
 session_start();
 if (isset($_POST['email']) && isset($_POST['password'])) {
     // Collect form data
     $email = $_POST['email'];
     $password = $_POST['password'];
-    // Verify user credentials
-    $stmt = $pdo->prepare("SELECT * FROM user WHERE email = :email and password = :password" );
-    $stmt->execute(array(
-        ':email'=>$email,
-        ':password'=>md5($password)
-    ));
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($user) {
+    
+    $stmt = "SELECT * FROM user WHERE email = :email and password = :password";
+    $params = [':email'=>$email, ':password'=>md5($password)];
+    $db = new Database();
+    $user = $db->read($stmt , $params);
+    if (is_array($user) && count($user) > 0) {
         
         
         $_SESSION['id'] = $user['id'];
 
         // Redirect to dashboard
-        header('Location: ../../index.html');
+        header('Location: ../../public/index.html');
         exit;
     } else {
         // Invalid credentials
