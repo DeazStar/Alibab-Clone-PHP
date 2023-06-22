@@ -3,7 +3,7 @@ require_once '../src/core/Database.php';
 require_once '../src/model/Product.php';
 $data = Product::getAllProducts();
 
-var_dump($_SESSION['id']);
+$_SESSION['id'] = 1;
 
 ?>
 
@@ -46,14 +46,24 @@ var_dump($_SESSION['id']);
                         <li class="nav-item px-2 person"><i class="bi bi-person-fill person-icon"></i><i class="bi bi-chevron-down ps-2"></i></li>
                         <div class="wrapper">
                             <p class="ps-3 pt-4">Welcome back!</p>
-                            <div class="btn-container">
-                                <div class="btns">
-                                    <a class="lbtn" href="signin.php">Sign in</a>
-                                </div>
-                                <div class="btns">
-                                    <a class="rbtn" href="signup.php">Join for free</a>
-                                </div>
-                            </div>
+                            <?php
+                                if (isset($_SESSION['id'])) {
+                                    echo '<div class="btn-container">
+                                    <div class="btns">
+                                        <a class="btn btn-primary" href="post-product.php">Post Product</a>
+                                    </div>
+                                </div>';
+                                } else {
+                                    echo '<div class="btn-container">
+                                    <div class="btns">
+                                        <a class="lbtn" href="signin.php">Sign in</a>
+                                    </div>
+                                    <div class="btns">
+                                        <a class="rbtn" href="signup.php">Join for free</a>
+                                    </div>
+                                </div>';
+                                }
+                            ?>
                             <p class="text-center pt-2">
                                 <span class="line"></span>
                                 or
