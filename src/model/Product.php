@@ -192,6 +192,25 @@ class Product {
 
     }
 
+    public static function orderProduct(array $order){
+        $db = new Database();
+        $sql = "Insert into `order`(user_id , product_id , address1, address2 ,province , city , zip_code, phoneNumber)
+            values (:user_id , :product_id , :address1 , :address2 , :province , :city ,:zip_code , :phoneNumber) ;";
+        $params = [ ':user_id' => $_SESSION['id'] ,
+                    ':product_id' => $order['product_id'],
+                    ':address1' => $order['address1'],
+                    ':address2' => $order['address2'],
+                    ':province' => $order['province'],
+                    'city' => $order['city'],
+                    'zip_code' => $order['zip_code'],
+                    'phoneNumber' => $order['phone_number']
+        
+        ];
+        
+        $db->write($sql , $params);
+        header('Location:cart.php');
+    }
+
     private function updateProductImage(array $file):bool|string {
         $size = 5242880;
         $allowedFileTypes = ['jpg', 'jpeg', 'png'];
