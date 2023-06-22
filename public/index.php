@@ -1,3 +1,12 @@
+<?php 
+require_once '../src/core/Database.php';
+require_once '../src/model/Product.php';
+$data = Product::getAllProducts();
+
+$_SESSION['id'] = 1;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +23,8 @@
 
     <!--custome css-->
     <link rel="stylesheet" href="assets/css/home.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+
     <!---->
     <title>Alibab.com:Manfacturers, Supliers, Exporters and Importers from the world's
         biggest online B2B marketplace
@@ -37,14 +48,24 @@
                         <li class="nav-item px-2 person"><i class="bi bi-person-fill person-icon"></i><i class="bi bi-chevron-down ps-2"></i></li>
                         <div class="wrapper">
                             <p class="ps-3 pt-4">Welcome back!</p>
-                            <div class="btn-container">
-                                <div class="btns">
-                                    <a class="lbtn" href="signin.html">Sign in</a>
-                                </div>
-                                <div class="btns">
-                                    <a class="rbtn" href="signup.html">Join for free</a>
-                                </div>
-                            </div>
+                            <?php
+                                if (isset($_SESSION['id'])) {
+                                    echo '<div class="btn-container">
+                                    <div class="btns">
+                                        <a class="btn btn-primary" href="post-product.php">Post Product</a>
+                                    </div>
+                                </div>';
+                                } else {
+                                    echo '<div class="btn-container">
+                                    <div class="btns">
+                                        <a class="lbtn" href="signin.php">Sign in</a>
+                                    </div>
+                                    <div class="btns">
+                                        <a class="rbtn" href="signup.php">Join for free</a>
+                                    </div>
+                                </div>';
+                                }
+                            ?>
                             <p class="text-center pt-2">
                                 <span class="line"></span>
                                 or
@@ -59,8 +80,8 @@
                             </div>
 
                             <div class="agreement px-2 py-4"><small>By sliding to Continue with or
-                                 Create My Account , I agree to Alibaba.com Free
-                                  Membership Agreement and Receive Marketing 
+                                Create My Account , I agree to Alibaba.com Free
+                                Membership Agreement and Receive Marketing 
                                 Materials</small>
                             </div>
                         </div>
@@ -217,6 +238,78 @@
     </div>
     <!---->
 
+    <!-- products -->
+    
+    <div class="container-lg product-wrapper">
+        <div class="just-for-u pt-5 h4 pb-3">Just for you</div>
+        <div class="product-container container-fluid">
+            <div class="row product-grid ">
+                <?php foreach ($data as $product): 
+                    $productId = $product->getProductId();
+                    $productName = $product->getProductName();
+                    $productPrice = $product->getPrice();
+                    $productQuantity = $product->getQuantity();
+                    $imageSrc = $product->getImageUrls();
+                    
+                    $uploadsDir = "uploads/";
+
+                    $uploadPos = strrpos($imageSrc[0], $uploadsDir);
+
+                    if ($uploadPos !== false) {
+                        $src = substr($imageSrc[0], $uploadPos);
+                    }
+                ?>
+                <div class="product rounded" data-id="<?= $productId?>">
+                    <div class="product-image-container">
+                        <img src="<?= $src ?>" class= "img-fluid" alt="">
+                    </div>
+                    <div class="product-name pt-2"><?= $productName?></div>
+                    <div class="product-price pt-2">$ <?= $productPrice?></div>
+                    <div class="product-quantity">MOQ: <?= $productQuantity . " " ?> piece</div>
+                </div>
+
+                <?php endforeach ?>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="line"></div>
+    <footer>
+        <div id="container">
+            <div id="row-1">
+                <a href="#">AliExpress| </a>
+                <a href="#">1688.com |</a>
+                <a href="#">Tamil Taobao World |</a>
+                <a href="#">Alipay |</a>
+                <a href="#">Lazada</a>
+            </div>
+            <div id="row-1">
+                <p>Browse Alphabetically:</p>
+                <a href="#">Onetouch |</a>
+                <a href="#"> Showroom |</a>
+                <a href="#">Country Search |</a>
+                <a href="#">Suppliers |</a>
+                <a href="#"> Affiliate</a>
+            </div>
+            <div id="row-1">
+                <p>Product Listing Policy -</p>
+                <a href="#">Intellectual Property Protection - </a>
+                <a href="#"> Privacy Policy - </a>
+                <a href="#">Terms of Use - </a>
+                <a href="#">User Information Legal Enquiry Guide</a>
+            </div>
+            <div id="row-1">
+                <img src="https://s.alicdn.com/@img/tfs/TB1VtZtebH1gK0jSZFwXXc7aXXa-65-70.gif" alt="logo" id="logo">
+                <span>© 1999-2021 Alibaba.com. </span>
+                <span> All rights reserved.</span>
+                <img src="https://s.alicdn.com/@img/tfs/TB1QhYprKT2gK0jSZFvXXXnFXXa-20-20.png" alt="logo" id="logo">
+                <span>浙公网安备 33010002000092号 浙B2-20120091-4</span>
+            </div>
+        </div>
+    </footer>
+
     <!--bootstrap-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
@@ -224,6 +317,7 @@
     <!---->
 
     <script src="assets/script/dropdown.js"></script>
+    <script src="assets/script/home.js"></script>
 </body>
 
 </html>

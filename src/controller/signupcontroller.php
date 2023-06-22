@@ -3,7 +3,7 @@
     require_once "../model/admin.php";
 
     session_start();
- 
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $firstName = $_POST['firstName'];
         $lastName = $_POST['lastName'];
@@ -43,7 +43,7 @@
             exit;
         }        
         $user = new User($firstName, $lastName , $email, md5($password), $country,
-                          $phoneNumber , $companyName , $tradeRole);
+                        $phoneNumber , $companyName , $tradeRole);
 
         $flag = $admin->save($user);
         if(!$flag){

@@ -26,7 +26,7 @@ class Database {
 
 
         if ($result) {
-            $data = $stmt->fetchAll(PDO::FETCH_OBJ);
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
             if (is_array($data)) {
                 return $data;
@@ -37,7 +37,7 @@ class Database {
         return false;
     }
 
-    public function write($query, $data) {
+    public function write(string $query, array $data) {
         $stmt = self::$connection->prepare($query);
         $result = $stmt->execute($data);
 
