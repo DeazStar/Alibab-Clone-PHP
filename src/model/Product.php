@@ -1,5 +1,6 @@
 <?php
 require_once dirname(__DIR__) . '/core/Database.php';
+session_start();
 
 class Product {
     private int $productId;
@@ -168,7 +169,7 @@ class Product {
         $sql = "select quantity from product where product_id = :product_id;";
         $params = [":product_id" => $product_id];
         $row = $db->read($sql ,$params);
-       
+
 
         
         $sql = "Insert into cart (user_id , product_id , quantity)
@@ -180,7 +181,7 @@ class Product {
                 ];
 
         $db->write($sql ,$params);
-        $newQuantity = $row[0]->quantity - $quantity;
+        $newQuantity = $row[0]['quantity'] - $quantity;
         
         $sql = "UPDATE product set quantity = :quantity
                     where product_id = :product_id;";
@@ -214,6 +215,31 @@ class Product {
             }
         }
         return false;
+    }
+
+    public static function getProductById(int $productId):Product {
+        $sql = "SELECT * FROM product WHERE product_id = ?";
+        $id = array($productId);
+        $db = new Database();
+        $data = $db->read($sql, $id);
+
+        $product = new Product();
+        $product->setProductId($data[0]['product_id']);
+        $product->setCategory($data[0]['category']);
+        $product->setProductName($data[0]['product_name']);
+        $product->setQuantity($data[0]['quantity']);
+        $product->setPrice($data[0]['price']);
+
+        $imageUrls = [];
+        for ($i = 1; $i <= 6; $i++) {
+            $key = 'product_img_url_'.$i;
+            if (!empty($data[0][$key])) {
+                array_push($imageUrls, $data[0][$key]);
+            }
+        }
+        $product->setImageUrls($imageUrls);
+
+        return $product;
     }
 
 }

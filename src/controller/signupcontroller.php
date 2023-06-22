@@ -3,7 +3,7 @@
     require_once "../model/admin.php";
 
     session_start();
- 
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $firstName = $_POST['firstName'];
         $lastName = $_POST['lastName'];

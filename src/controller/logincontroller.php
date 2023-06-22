@@ -16,7 +16,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $_SESSION['id'] = $user['id'];
 
         // Redirect to dashboard
-        header('Location: ../../public/index.html');
+        header('Location: ../../public/index.php');
         exit;
     } else {
         // Invalid credentials

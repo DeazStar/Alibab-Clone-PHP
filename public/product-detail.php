@@ -1,4 +1,30 @@
+<?php
+require_once '../src/core/Database.php';
+require_once '../src/model/Product.php';
 
+if(isset($_GET['id'])) {
+    $product = Product::getProductById($_GET['id']);
+
+    $productName = $product->getProductName();
+    $quantity = $product->getQuantity();
+    $price = $product->getPrice();
+
+    $imageSrc = $product->getImageUrls();
+    $src = [];
+
+    for ($i = 0; $i < 6; $i++) {
+        $uploadsDir = "uploads/";
+
+        $uploadPos = strrpos($imageSrc[$i], $uploadsDir);
+    
+        if ($uploadPos !== false) {
+            $src[] = substr($imageSrc[$i], $uploadPos);
+        }
+    }
+
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,31 +69,31 @@
         <div class="product-description row">
             <div class="col-4">
                 <div class="product-main-image-container">
-                    <img src="uploads/product-image/Screenshot from 2023-06-17 14-55-20_64940f57356022.11997671.png" alt="" class="product-main-image img-fluid">
+                    <img src="<?= $src[0] ?>" alt="" class="product-main-image img-fluid">
                 </div>
                 <div class="other-images d-flex pt-3">
                     <div class="image1-container">
-                        <img src="uploads/product-image/Screenshot from 2023-06-17 14-55-20_64940f57356022.11997671.png" alt="" class="img-fluid">
+                        <img src="<?= $src[0] ?>" alt="" class="img-fluid">
                     </div>
                     <div class="image1-container">
-                        <img src="uploads/product-image/Screenshot from 2023-06-17 14-55-20_64940f57356022.11997671.png" alt="" class="img-fluid">
+                        <img src="<?= $src[1] ?>" alt="" class="img-fluid">
                     </div>
                     <div class="image1-container">
-                        <img src="uploads/product-image/Screenshot from 2023-06-17 14-55-20_64940f57356022.11997671.png" alt="" class="img-fluid">
+                        <img src="<?= $src[2] ?>" alt="" class="img-fluid">
                     </div>
                     <div class="image1-container">
-                        <img src="uploads/product-image/Screenshot from 2023-06-17 14-55-20_64940f57356022.11997671.png" alt="" class="img-fluid">
+                        <img src="<?= $src[3] ?>" alt="" class="img-fluid">
                     </div>
                     <div class="image1-container">
-                        <img src="uploads/product-image/Screenshot from 2023-06-17 14-55-20_64940f57356022.11997671.png" alt="" class="img-fluid">
+                        <img src="<?= $src[4] ?>" alt="" class="img-fluid">
                     </div>
                     <div class="image1-container">
-                        <img src="uploads/product-image/Screenshot from 2023-06-17 14-55-20_64940f57356022.11997671.png" alt="" class="img-fluid">
+                        <img src="<?= $src[5] ?>" alt="" class="img-fluid">
                     </div>
                 </div>
             </div>
             <div class="col-5">
-                <div class="product-name h5">Xiaomi Redmi Buds 3 Lite Tws Earbuds handsfree Earphones Wireless Headphones Airdots Redmi Buds 3 Lite</div>
+                <div class="product-name h5" data-id="<?= $_GET['id'] ?>"><?= $productName ?></div>
                 <div class="review d-flex gap-2 pt-2">
                     <div>
                         <i class="bi bi-star-fill star"></i>
@@ -81,15 +107,15 @@
                 </div>
 
                 <div class="quantity pt-3">
-                    Limit: 1 - 10 pieces
+                    Limit: 1 - <?= $quantity ?> pieces
                 </div>
                 <div class="price pt-2">
-                    Price per Piece: $3500
+                    Price per Piece: $ <?= $price ?>
                 </div>
 
                 <div class="benefits pt-2">Benefits: Quick refunds on orders under US $500</div>
                 <div class="selected-quantity pt-3">
-                    <input type="number">
+                    <input type="number" id="quantity">
                 </div>
             </div>
             <div class="col-3">
@@ -106,6 +132,14 @@
                 </div>
             </div>
         </div>
+
+        <form action="../src/controller/cartcontroller.php" action="GET">
+            <input type="text" value="<?= $_GET['id'] ?>" name="product_id"">
+            <input type="text" id="rl-quantity" name="quantity">
+            <input type="submit" id="rl-submit-btn">
+        </form>
     </div>
+
+    <script src="assets/script/product-detail.js"></script>
 </body>
 </html>

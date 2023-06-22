@@ -1,3 +1,12 @@
+<?php 
+require_once '../src/core/Database.php';
+require_once '../src/model/Product.php';
+$data = Product::getAllProducts();
+
+var_dump($_SESSION['id']);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,10 +48,10 @@
                             <p class="ps-3 pt-4">Welcome back!</p>
                             <div class="btn-container">
                                 <div class="btns">
-                                    <a class="lbtn" href="signin.html">Sign in</a>
+                                    <a class="lbtn" href="signin.php">Sign in</a>
                                 </div>
                                 <div class="btns">
-                                    <a class="rbtn" href="signup.html">Join for free</a>
+                                    <a class="rbtn" href="signup.php">Join for free</a>
                                 </div>
                             </div>
                             <p class="text-center pt-2">
@@ -59,8 +68,8 @@
                             </div>
 
                             <div class="agreement px-2 py-4"><small>By sliding to Continue with or
-                                 Create My Account , I agree to Alibaba.com Free
-                                  Membership Agreement and Receive Marketing 
+                                Create My Account , I agree to Alibaba.com Free
+                                Membership Agreement and Receive Marketing 
                                 Materials</small>
                             </div>
                         </div>
@@ -217,6 +226,41 @@
     </div>
     <!---->
 
+    <!-- products -->
+    
+    <div class="container-lg product-wrapper">
+        <div class="just-for-u pt-5 h4 pb-3">Just for you</div>
+        <div class="product-container container-fluid">
+            <div class="row product-grid ">
+                <?php foreach ($data as $product): 
+                    $productId = $product->getProductId();
+                    $productName = $product->getProductName();
+                    $productPrice = $product->getPrice();
+                    $productQuantity = $product->getQuantity();
+                    $imageSrc = $product->getImageUrls();
+                    
+                    $uploadsDir = "uploads/";
+
+                    $uploadPos = strrpos($imageSrc[0], $uploadsDir);
+
+                    if ($uploadPos !== false) {
+                        $src = substr($imageSrc[0], $uploadPos);
+                    }
+                ?>
+                <div class="product rounded" data-id="<?= $productId?>">
+                    <div class="product-image-container">
+                        <img src="<?= $src ?>" class= "img-fluid" alt="">
+                    </div>
+                    <div class="product-name pt-2"><?= $productName?></div>
+                    <div class="product-price pt-2">$ <?= $productPrice?></div>
+                    <div class="product-quantity">MOQ: <?= $productQuantity . " " ?> piece</div>
+                </div>
+
+                <?php endforeach ?>
+            </div>
+        </div>
+    </div>
+
     <!--bootstrap-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
@@ -224,6 +268,7 @@
     <!---->
 
     <script src="assets/script/dropdown.js"></script>
+    <script src="assets/script/home.js"></script>
 </body>
 
 </html>
