@@ -1,3 +1,6 @@
+body {
+    background-color: #f8f6f6;
+}
 /** navbar **/
 .small-hamburger, .person-icon{
     font-size: 1.5rem;
@@ -270,4 +273,28 @@
     border-width: 1px;
     color: #222;
     border-color: #222;
+}
+
+.product-wrapper {
+    background-color: #f8f6f6;
+}
+
+.product {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.product-image-container {
+    height: 220px;
+}
+
+.product-price {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
 }

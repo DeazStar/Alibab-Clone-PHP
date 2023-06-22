@@ -14,22 +14,34 @@ const uploadBtn = document.querySelector(".fake-upload-btn");
 const files = document.querySelectorAll(".imgUpload");
 const previewImage = document.querySelectorAll(".prev-img");
 
+const fkSubmitBtn = document.querySelector(".fake-submit-btn");
+const submitBtn = document.getElementById("submit-btn");
+
 listItem.forEach((list) => {
     list.addEventListener("click", () => {
-        category.value = listItem.value;
+        listItem.forEach((otherList) => {
+            otherList.classList.remove('selected');
+        });
+
+        list.classList.add("selected");
+        category.value = list.innerText;
+        console.log(category.value);
     });
 });
 
 fkProduct.addEventListener("input", () => {
     productNameInput.value = fkProduct.value;
+    console.log(productNameInput.value);
 });
 
 fkQuantity.addEventListener("input", () => {
     quantityInput.value = fkQuantity.value;
+    console.log(quantityInput.value);
 });
 
 fkPrice.addEventListener("input", () => {
     priceInput.value = fkPrice.value;
+    console.log(priceInput.value);
 });
 
 let currentIndex = 0;
@@ -41,10 +53,11 @@ uploadBtn.addEventListener("click", () => {
         const file = event.target.files[0];
         let filePath = URL.createObjectURL(file);
         previewImage[currentIndex].src = filePath;
-        console.log("hehe")
+        currentIndex = (currentIndex + 1) % files.length; 
     });
 
-    currentIndex = (currentIndex + 1) % files.length; 
-    console.log(currentIndex);
-
 });
+
+fkSubmitBtn.addEventListener("click", () => {
+    submitBtn.click();
+})
