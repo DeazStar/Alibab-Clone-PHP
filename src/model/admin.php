@@ -1,5 +1,5 @@
 <?php
-require_once "../core/pdo.php";
+require_once "../core/Database.php";
 require_once "person.php";
 
 class Admin {
@@ -13,19 +13,16 @@ class Admin {
      * @link admin.php
      */
     public function emailExists($email) {
-        global $pdo;
-        $sql = "SELECT COUNT(*) FROM user WHERE email = :email";
-        $stmt = $pdo->prepare($sql);
+        $pdo = new Database();
+        $stmt = "SELECT * FROM user WHERE email = :email";
+        $params = [':email' => $email];
+        $count = $pdo->read($stmt , $params);
         
-        $stmt->execute(array(
-            ':email' => $email
-        )); 
-        $count = $stmt->fetchColumn();
 
-        if ($count > 0) {
-            return True;
+        if ($count == false) {
+            return false;
         }
-        return False;
+        return true;
     }
 
     /**
@@ -46,13 +43,10 @@ class Admin {
      * @link #save
      */
     public function save(User $user) {
-        global $pdo;
-
+        $pdo = new Database();
         $sql = "INSERT INTO user (firstName , lastName , email, password, country,  phoneNumber, company_name, trade_role) 
                 VALUES (:firstName , :lastName , :email, :password, :country,  :phoneNumber, :companyName, :tradeRole)";
-        $stmt = $pdo->prepare($sql);
-        
-        $result = $stmt->execute(array(
+        $params = [    
             ':firstName' => $user->getFirstName(),
             ':lastName' => $user->getLastName(),
             ':email' => $user->getEmail(),
@@ -61,12 +55,9 @@ class Admin {
             ':phoneNumber' => $user->getPhoneNumber(),
             ':companyName' => $user->getCompanyName(),
             ':tradeRole' => $user->getTradeRole()
-        ));
-        
-        if ($result) {
-            return True;
-        }
-        return False;
+            ];
+        $pdo->write($sql , $params);
+        return True;
     }
 }
 ?>
