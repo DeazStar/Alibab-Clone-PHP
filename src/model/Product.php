@@ -1,5 +1,5 @@
 <?php
-require_once '../core/Database.php';
+require_once dirname(__DIR__) . '/core/Database.php';
 
 class Product {
     private int $productId;
@@ -64,8 +64,8 @@ class Product {
     public function save($data, $userId, $files):void {
         $sql = "INSERT INTO product(user_id, category, product_name, quantity, price, 
         product_img_url_1, product_img_url_2, product_img_url_3, product_img_url_4, product_img_url_5, 
-        product_img_url_6) VALUES(:userId, :category, :productName, :quantity, :price, :image1, :image2, 
-        :image3, :image4, :image5, :image6)";
+        product_img_url_6) VALUES(?, ?, ?, ?, ?, ?, ?, 
+        ?, ?, ?, ?)";
 
         $productInfo = [];
         $productImage = [];
@@ -82,7 +82,7 @@ class Product {
 
         array_push($productInfo, $userId);
         array_push($productInfo, $data['category']);
-        array_push($productInfo, $data['product-name']);
+        array_push($productInfo, $data['product_name']);
         array_push($productInfo, $data['quantity']);
         array_push($productInfo, $data['price']);
 
@@ -90,9 +90,11 @@ class Product {
             array_push($productInfo, $productImage[$i]);
         }
 
+
         $db = new Database();
 
-        $db->write($sql, $productInfo);
+        $status = $db->write($sql, $productInfo);
+        var_dump($status);
 
     }
 
@@ -161,17 +163,18 @@ class Product {
     }
 
     private function updateProductImage(array $file):bool|string {
-        $size = 20000;
+        $size = 5242880;
         $allowedFileTypes = ['jpg', 'jpeg', 'png'];
         
         $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $path = dirname(dirname(__DIR__)).'/public/uploads/productImage/';
+        $path = dirname(dirname(__DIR__)).'/public/uploads/product-image/';
 
         if ($file['error'] === 0) {
-            if ($size <= $file['size']) {
+            if ($size >= $file['size']) {
                 if (in_array($fileExtension, $allowedFileTypes)) {
-                    $baseName = pathinfo($file['name'], PATHINFO_FILENAME);
-                    $newName = $baseName . '_' . uniqid("", true) . $fileExtension;
+                    $arrName = explode('.', $file['name']);
+                    $baseName = $arrName[0];
+                    $newName = $baseName . '_' . uniqid("", true) . '.' . $fileExtension;
 
                     $status = move_uploaded_file($file['tmp_name'], $path.$newName);
 
