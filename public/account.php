@@ -1,8 +1,8 @@
 <?php
-session_start();
-$profilePicture = isset($_SESSION['profilePicture']) ? $_SESSION['profilePicture'] : 'assets/images/default-profile-picture.jpg';
-$mobileNumber = isset($_SESSION['mobileNumber']) ? $_SESSION['mobileNumber'] : '+251....';
-$email = isset($_SESSION['email']) ? $_SESSION['email'] : 'Example@gmail.com';
+  session_start();
+  $profilePicture = isset($_SESSION['profilePicture']) ? $_SESSION['profilePicture'] : 'assets/images/default-profile-picture.jpg';
+  $mobileNumber = isset($_SESSION['mobileNumber']) ? $_SESSION['mobileNumber'] : '+251....';
+  $email = isset($_SESSION['email']) ? $_SESSION['email'] : 'Example@gmail.com';
 ?>
 
 <!doctype html>
