@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['profilePicture'] = $targetFile;
 
             // Perform any other necessary actions, such as updating the user profile in the database
-            $userId = $_SESSION['user_id']; // Assuming you have a user ID stored in the session
+            $userId = $_SESSION['id']; // Assuming you have a user ID stored in the session
 
             // Connect to the database
             $db = new DataBase();
@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Combine the update and select queries into a single SQL statement
             $sql = "
-                UPDATE users SET profile_picture = '$targetFile' WHERE id = $userId;
-                SELECT mobile_number, email FROM users WHERE id = $userId;
+                UPDATE user SET profile_picture = '$targetFile' WHERE id = $userId;
+                SELECT phoneNumber, email FROM users WHERE id = $userId;
             ";
 
             // Execute the combined SQL statement
@@ -31,13 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute();
 
             // Process the results
-            do {
-                if ($stmt->columnCount() > 0) {
+            
+                if ($stmt->rowCount() > 0) {
                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
                     $_SESSION['mobileNumber'] = $row['mobile_number'];
                     $_SESSION['email'] = $row['email'];
                 }
-            } while ($stmt->nextRowset());
+            
 
             // Close the statement and database connection
             $stmt = null;
@@ -47,4 +47,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['error'] = "<p class='text-center' style='max-width: 70%' style='font-size: 95%; 'style='min-width: 50%' alert-dismissible> profile updated successfully .</p>";
             header("Location: ../../public/account.php");
             exit();
-       
+        }}
+}

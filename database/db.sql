@@ -7,6 +7,7 @@ create TABLE user(
     id INT PRIMARY KEY AUTO_INCREMENT,
     firstname VARCHAR(50) NOT NULL,
     lastname VARCHAR(50) NOT NULL,
+   profile_picture VARCHAR(255) ,
     email VARCHAR(50) UNIQUE NOT NULL,
     `password` VARCHAR(300) NOT NULL,
     country VARCHAR(200) NOT NULL,
