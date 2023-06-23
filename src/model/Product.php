@@ -208,7 +208,6 @@ class Product {
         ];
         
         $db->write($sql , $params);
-        header('Location:cart.php');
     }
 
     private function updateProductImage(array $file):bool|string {
