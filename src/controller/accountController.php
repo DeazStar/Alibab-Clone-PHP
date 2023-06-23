@@ -16,35 +16,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Perform any other necessary actions, such as updating the user profile in the database
             $userId = $_SESSION['user_id']; // Assuming you have a user ID stored in the session
 
-            // Connect to the database and update the user profile
+            // Connect to the database
             $db = new DataBase();
             $connection = $db->getInstance();
 
-            // Update the user profile in the database and fetch the mobile number and email
-            $sql = "UPDATE users SET profile_picture = :profilePicture WHERE id = :userId RETURNING mobile_number, email";
+            // Combine the update and select queries into a single SQL statement
+            $sql = "
+                UPDATE users SET profile_picture = '$targetFile' WHERE id = $userId;
+                SELECT mobile_number, email FROM users WHERE id = $userId;
+            ";
+
+            // Execute the combined SQL statement
             $stmt = $connection->prepare($sql);
-            $stmt->bindParam(':profilePicture', $targetFile);
-            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
 
-            if ($stmt->execute()) {
-                // User profile updated successfully
-                $_SESSION['error'] = "<p class='text-center' style='max-width: 70%' style='font-size: 95%; 'style='min-width: 50%' alert-dismissible> profile updated successfully .</p>";
-
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                $_SESSION['mobileNumber'] = $row['mobile_number'];
-                $_SESSION['email'] = $row['email'];
-
-                header("Location: ../../public/account.php");
-            } else {
-                // Error updating user profile
-            }
+            // Process the results
+            do {
+                if ($stmt->columnCount() > 0) {
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $_SESSION['mobileNumber'] = $row['mobile_number'];
+                    $_SESSION['email'] = $row['email'];
+                }
+            } while ($stmt->nextRowset());
 
             // Close the statement and database connection
             $stmt = null;
             $db = null;
-        } else {
-        }
-    } else {
-    }
-}
-?>
+
+            // Redirect to account page
+            $_SESSION['error'] = "<p class='text-center' style='max-width: 70%' style='font-size: 95%; 'style='min-width: 50%' alert-dismissible> profile updated successfully .</p>";
+            header("Location: ../../public/account.php");
+            exit();
+       
