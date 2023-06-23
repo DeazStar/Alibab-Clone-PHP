@@ -151,8 +151,11 @@ body
     gap: 7%;
 }
 .upload-photo-img{
-    width: 33%;
+
+    width: 53px;
+    height: 53px;
     border-radius: 50%; 
+
 }
 
 p
@@ -202,7 +205,9 @@ li
     }
     .upload-photo-img
     {
-        width: 70%;
+        width: 33%;
+        height: 33%;
+        border-radius: 50%; 
     }
 }
 
